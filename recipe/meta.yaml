@@ -20,6 +20,8 @@ requirements:
     - python
     - pip
     - cffi >=1.1
+    - setuptools >=40.8.0
+    - wheel
   run:
     - python
     - pip
