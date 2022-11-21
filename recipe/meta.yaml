@@ -20,12 +20,14 @@ requirements:
     - python
     - pip
     - cffi >=1.1
+    - libffi {{ libffi }}
     - setuptools >=40.8.0
     - wheel
   run:
     - python
     - pip
     - cffi >=1.1
+    - libffi {{ libffi }}
     - six >=1.4.1
 
 test:
