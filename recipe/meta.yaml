@@ -12,7 +12,7 @@ source:
 build:
   skip: True  # [py<38]
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
 
 requirements:
   build:
