@@ -1,5 +1,5 @@
 {% set name = "bcrypt" %}
-{% set version = "4.3.0" %}
+{% set version = "5.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,17 +7,24 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 3a3fd2204178b6d2adcf09cb4f6426ffef54762577a7c9b54c159008cb288c18
+  sha256: f748f7c2d6fd375cc93d3fba7ef4a9e3a092421b8dbf34d8d4dc06be9492dfdd
 
 build:
   skip: True  # [py<38]
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
+  script: 
+   - export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1  # [unix]
+   - set PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1  # [win]
+   - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
+   - cd src/_bcrypt
+   - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - {{ compiler('rust') }}
+    - cargo-bundle-licenses
   host:
     - python
     - pip
